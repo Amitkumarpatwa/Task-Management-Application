@@ -40,13 +40,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // render tasks into table
     function renderTasks(tasks) {
         taskList.innerHTML = '';
+        var tableWrapper = document.getElementById('taskTableWrapper');
 
         if (tasks.length === 0) {
             noTasks.style.display = 'block';
+            if (tableWrapper) tableWrapper.style.display = 'none';
             return;
         }
 
         noTasks.style.display = 'none';
+        if (tableWrapper) tableWrapper.style.display = 'block';
 
         tasks.forEach(function (task, index) {
             var tr = document.createElement('tr');

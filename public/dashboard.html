@@ -39,21 +39,23 @@
         </div>
 
         <!-- Task List -->
-        <table class="task-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="taskList">
-                <!-- tasks will be rendered here -->
-            </tbody>
-        </table>
+        <div class="task-table-wrapper" id="taskTableWrapper">
+            <table class="task-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="taskList">
+                    <!-- tasks will be rendered here -->
+                </tbody>
+            </table>
+        </div>
 
         <div id="noTasks" class="no-tasks" style="display: none;">
             No tasks yet. Add your first task above.

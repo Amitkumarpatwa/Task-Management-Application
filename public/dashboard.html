@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Task Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>My Tasks</h1>
+            <div class="user-info">
+                <span id="userName"></span>
+                <button class="btn-logout" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+
+        <!-- Add Task Form -->
+        <div class="add-task-form">
+            <h3>Add New Task</h3>
+            <div id="taskError" class="error-msg"></div>
+            <div id="taskSuccess" class="success-msg"></div>
+            <form id="addTaskForm">
+                <div class="form-row">
+                    <input type="text" name="title" placeholder="Task title" required>
+                    <input type="text" name="description" placeholder="Description (optional)">
+                </div>
+                <div class="form-row">
+                    <select name="status">
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Task List -->
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="taskList">
+                <!-- tasks will be rendered here -->
+            </tbody>
+        </table>
+
+        <div id="noTasks" class="no-tasks" style="display: none;">
+            No tasks yet. Add your first task above.
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal">
+            <h3>Edit Task</h3>
+            <form id="editTaskForm">
+                <input type="hidden" id="editTaskId">
+                <div class="form-group">
+                    <label for="editTitle">Title</label>
+                    <input type="text" id="editTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDescription">Description</label>
+                    <input type="text" id="editDescription">
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+                    <select id="editStatus">
+                        <option value="pending">Pending</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="btn btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

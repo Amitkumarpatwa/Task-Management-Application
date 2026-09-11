@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 '<td>' + (index + 1) + '</td>' +
                 '<td>' + escapeHtml(task.title) + '</td>' +
                 '<td>' + escapeHtml(task.description || '-') + '</td>' +
-                '<td><span class="status-badge ' + statusClass + '">' + statusText + '</span></td>' +
+                '<td><span class="status-badge status-clickable ' + statusClass + '" data-id="' + task._id + '" data-status="' + task.status + '" title="Click to change status">' + statusText + '</span></td>' +
                 '<td>' + createdDate + '</td>' +
                 '<td>' +
                 '<div class="task-actions">' +
@@ -72,6 +72,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 '<button class="btn btn-danger btn-sm" data-id="' + task._id + '">Delete</button>' +
                 '</div>' +
                 '</td>';
+
+            // status badge click - cycle through statuses
+            tr.querySelector('.status-badge').addEventListener('click', function () {
+                var currentStatus = this.getAttribute('data-status');
+                var nextStatus;
+                if (currentStatus === 'pending') nextStatus = 'in-progress';
+                else if (currentStatus === 'in-progress') nextStatus = 'completed';
+                else nextStatus = 'pending';
+
+                updateTaskStatus(this.getAttribute('data-id'), nextStatus);
+            });
 
             // edit button
             tr.querySelector('.btn-edit').addEventListener('click', function () {
@@ -133,6 +144,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     loadTasks();
                 } else {
                     showTaskError(result.data.message || 'Failed to delete task');
+                }
+            })
+            .catch(function () {
+                showTaskError('Something went wrong');
+            });
+    }
+
+    // update task status (click to cycle)
+    function updateTaskStatus(id, newStatus) {
+        fetch('/api/tasks/' + id, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: newStatus })
+        })
+            .then(function (res) { return res.json().then(function (data) { return { status: res.status, data: data }; }); })
+            .then(function (result) {
+                if (result.status === 200) {
+                    loadTasks();
+                } else {
+                    showTaskError(result.data.message || 'Failed to update status');
                 }
             })
             .catch(function () {

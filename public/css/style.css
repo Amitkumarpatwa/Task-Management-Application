@@ -332,6 +332,15 @@ body {
     font-weight: 500;
 }
 
+.status-clickable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.status-clickable:hover {
+    opacity: 0.75;
+}
+
 .status-pending {
     background-color: #fef3c7;
     color: #92400e;
